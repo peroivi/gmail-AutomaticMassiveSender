@@ -1,15 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# gmail_massive_email_sender
-
-#Made by Julián Caro Linares-jcarolinares@gmail.com
-
-#LICENSE: CC-BY-SA
-
-#Based on the examples of:
-# www.pythondiario.com
-
 #Libraries
 import os
 import time
@@ -23,6 +14,31 @@ from smtplib import SMTP
 import configparser
 
 #List of email
+message='''Hello we are the UPC Vilanova E3Team,
+
+
+We are a team formed by several students from the five engineering disciplines taught at the EPSEVG campus of the Polytechnic University of Catalonia (UPC) Spain. 
+
+We are participating in the renowned MotoStudent competition. This event brings together the best engineering universities at national and international level, in order to present their projects of design and prototyping of an electric racing motorcycle. Our team’s principle is competitive and efficient sustainability.
+
+
+We are contacting because we believe that you could be interested in a collaboration agreement with the team and in being able to be part of this project.
+
+
+We believe that the union between our ambition and commitment, together with your experience and business projection, will lead us to achieve success wherever we compete and will bring added value to your company. We would be proud to display your brand in the MotoStudent 2021-2023 competition that we will soon partake in.
+
+
+In the attached file you can find a detailed description of the project you would be investing in and what the sponsorship consists of.
+
+
+However, we would like to be able to present our proposal in more detail and answer any questions if needed. We hope you will consider our proposal and let us know your decision.
+
+
+Yours sincerely.
+
+
+The UPC VILANOVA E3TEAM'''
+
 
 #Open and read the file of emails address
 emails_file=open("emails_file.txt")
@@ -54,8 +70,6 @@ class email:
         return self.to_address
     def get_subject(self):
         return self.subject
-    def get_message(self):
-        return self.message
 
 def main():
 
@@ -69,7 +83,7 @@ def main():
     user.new(config.get('user_email','user_name'),config.get('user_email','password'))
 
     #parse email message to include new lines and paragraphs
-    message1 = config.get('email_data','message')
+    message1 = message
     message1.replace('\\n', '\n')
 
     #Email data
@@ -83,7 +97,7 @@ def main():
     for index in range(len(list_of_emails)):
         #Sending the email
 
-        mime_message = MIMEText(email_to_send.get_message())
+        mime_message = MIMEText(message)
         #mime_message["From"] = email_to_send.get_from_address()
         mime_message["From"] = user.get_user()
         mime_message["To"] =list_of_emails[index]
